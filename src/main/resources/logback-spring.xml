@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+
+	<property name="HOME_LOG" value="logs/api" />
+	
+	<springProfile name="dev">
+        <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+        
+        <appender name="application" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<encoder>
+                <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            </encoder>
+		</appender>
+
+        <root level="INFO">
+            <appender-ref ref="console"/>
+        </root>
+    </springProfile>
+
+	<springProfile name="qa,prod">
+
+		<appender name="applicationLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${HOME_LOG}/application.log</file>
+
+			<encoder>
+				<pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
+			</encoder>
+
+			<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+				<fileNamePattern>${HOME_LOG}/archived/application.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+				<maxFileSize>10MB</maxFileSize>
+				<totalSizeCap>100MB</totalSizeCap>
+				<maxHistory>10</maxHistory>
+			</rollingPolicy>
+		</appender>
+		
+		<logger name="org.springframework.boot.SpringApplication" level="INFO" additivity="false">
+			<appender-ref ref="applicationLog" />
+		</logger>
+		
+		<root level="INFO">
+			<appender-ref ref="applicationLog" />
+		</root>
+		
+		<appender name="errorHandlerLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${HOME_LOG}/error-handler.log</file>
+
+			<encoder>
+				<pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
+			</encoder>
+
+			<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+				<fileNamePattern>${HOME_LOG}/archived/error-handler.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+				<maxFileSize>10MB</maxFileSize>
+				<totalSizeCap>100MB</totalSizeCap>
+				<maxHistory>10</maxHistory>
+			</rollingPolicy>
+		</appender>
+		
+		<logger name="errorHandlerLog" level="INFO" additivity="false">
+		    <appender-ref ref="errorHandlerLog" />
+		</logger>
+		
+		<appender name="authenticationLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${HOME_LOG}/authentication.log</file>
+
+			<encoder>
+				<pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
+			</encoder>
+
+			<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+				<fileNamePattern>${HOME_LOG}/archived/authentication.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+				<maxFileSize>10MB</maxFileSize>
+				<totalSizeCap>100MB</totalSizeCap>
+				<maxHistory>10</maxHistory>
+			</rollingPolicy>
+		</appender>
+		
+		<logger name="authenticationLog" level="INFO" additivity="false">
+		    <appender-ref ref="authenticationLog" />
+		</logger>
+		
+		<appender name="messageSenderLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${HOME_LOG}/message-sender.log</file>
+
+			<encoder>
+				<pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
+			</encoder>
+
+			<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+				<fileNamePattern>${HOME_LOG}/archived/message-sender.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+				<maxFileSize>10MB</maxFileSize>
+				<totalSizeCap>100MB</totalSizeCap>
+				<maxHistory>10</maxHistory>
+			</rollingPolicy>
+		</appender>
+		
+		<logger name="messageSenderLog" level="INFO" additivity="false">
+		    <appender-ref ref="messageSenderLog" />
+		</logger>
+	</springProfile>
+
+</configuration>
