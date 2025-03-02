@@ -1,9 +1,10 @@
 package com.jardvcode.authentication.mapper;
 
 import com.jardvcode.authentication.dto.UserDTO;
+import com.jardvcode.shared.mapper.AbstractMapper;
 import com.jardvcode.user.entity.UserEntity;
 
-public class UserMapper {
+public class UserMapper extends AbstractMapper<UserDTO, UserEntity> {
 	
 	public UserEntity fromDTO(UserDTO dto) {
 		UserEntity userEntity = new UserEntity();
