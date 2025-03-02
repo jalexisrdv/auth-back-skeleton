@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.jardvcode.messagesender.service.EmailSenderService;
 import com.jardvcode.shared.domain.BusinessRules;
@@ -14,6 +15,7 @@ import com.jardvcode.shared.util.OTPCodeGenerator;
 import com.jardvcode.user.entity.UserEntity;
 import com.jardvcode.user.repository.UserRepository;
 
+@Service
 public class UserVerifierService {
 
 	private final static Logger LOG = LoggerFactory.getLogger("authenticationLog");
